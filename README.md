@@ -58,7 +58,7 @@ cp templates/CLAUDE-template.md /path/to/project/.claude/
 
 ### Via DevTemplate Menu
 
-If using [devtemplate](https://github.com/yourusername/devtemplate), run the installation menu and select **PIV Framework** from the **Orchestration** category.
+If using [devtemplate](https://github.com/Steve-Klingele/devtemplate), run the installation menu and select **PIV Framework** from the **Orchestration** category.
 
 ## Workflow
 

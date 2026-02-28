@@ -1,61 +1,62 @@
+---
+description: Initialize and set up the project for local development
+---
+
 # Initialize Project
 
-Run the following commands to set up and start the project locally:
+Analyze the project structure and run the necessary commands to set up and start the project locally.
 
-## 1. Create Environment File
-```bash
-cp .env.example .env
-```
-Creates your local environment configuration from the example template.
+## Process
 
-## 2. Install Dependencies
-```bash
-uv sync
-```
-Installs all Python packages defined in pyproject.toml.
+### 1. Detect Project Type
 
-## 3. Start Database
-```bash
-docker-compose up -d db
-```
-Starts PostgreSQL 18 in a Docker container on port 5433.
+Examine the repository for configuration files to determine the stack:
 
-## 4. Run Database Migrations
-```bash
-uv run alembic upgrade head
-```
-Applies all pending database migrations.
+- `package.json` → Node.js (check for `npm`, `yarn`, `pnpm`, `bun`)
+- `pyproject.toml` / `requirements.txt` → Python (check for `uv`, `pip`, `poetry`)
+- `go.mod` → Go
+- `Cargo.toml` → Rust
+- `docker-compose.yml` / `compose.yml` → Docker services
+- `.env.example` → Environment configuration needed
 
-## 5. Start Development Server
-```bash
-uv run uvicorn app.main:app --reload --port 8123
-```
-Starts the FastAPI server with hot-reload on port 8123.
-
-## 6. Validate Setup
-
-Check that everything is working:
+### 2. Create Environment File
 
 ```bash
-# Test API health
-curl -s http://localhost:8123/health
-
-# Test database connection
-curl -s http://localhost:8123/health/db
+# Copy environment template if it exists
+cp .env.example .env 2>/dev/null || echo "No .env.example found"
 ```
 
-Both should return `{"status":"healthy"}` responses.
+Review `.env` and note any required values (API keys, database URLs, etc.).
 
-## Access Points
+### 3. Install Dependencies
 
-- Swagger UI: http://localhost:8123/docs
-- Health Check: http://localhost:8123/health
-- Database: localhost:5433
+Run the appropriate install command based on the detected package manager.
 
-## Cleanup
+### 4. Set Up Services
 
-To stop services:
-```bash
-# Stop dev server: Ctrl+C
-# Stop database: docker-compose down
-```
+If the project uses databases or other services (Docker, local DB, etc.), start them.
+
+### 5. Run Migrations
+
+If the project has database migrations, apply them.
+
+### 6. Start Development Server
+
+Start the development server using the project's dev command.
+
+### 7. Validate Setup
+
+Verify the application is running and healthy:
+- Check health endpoints if available
+- Confirm the main page loads
+- Verify database connectivity
+
+## Output
+
+Report the access points, running services, and any manual configuration still needed.
+
+## Notes
+
+- Customize this file with your project's specific setup commands
+- Replace the generic steps above with exact commands for your stack
+- Keep validation steps non-interactive and scriptable
