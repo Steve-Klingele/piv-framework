@@ -16,19 +16,19 @@ echo "Target: ${TARGET_DIR}"
 echo ""
 
 # Create directory structure
-mkdir -p "${CLAUDE_DIR}/commands"
+mkdir -p "${CLAUDE_DIR}/commands/piv"
 mkdir -p "${CLAUDE_DIR}/skills/agent-browser"
 mkdir -p "${CLAUDE_DIR}/skills/e2e-test"
 mkdir -p "${TARGET_DIR}/.agents/plans"
 
-# Copy commands
-echo "Installing commands..."
+# Copy commands into piv/ subfolder
+echo "Installing commands to .claude/commands/piv/ ..."
 for cmd in "${SCRIPT_DIR}/commands/"*.md; do
     filename=$(basename "$cmd")
-    if [ -f "${CLAUDE_DIR}/commands/${filename}" ]; then
+    if [ -f "${CLAUDE_DIR}/commands/piv/${filename}" ]; then
         echo "  Skipping ${filename} (already exists)"
     else
-        cp "$cmd" "${CLAUDE_DIR}/commands/"
+        cp "$cmd" "${CLAUDE_DIR}/commands/piv/"
         echo "  Installed ${filename}"
     fi
 done
@@ -57,16 +57,16 @@ fi
 echo ""
 echo "PIV Framework installed to ${CLAUDE_DIR}/"
 echo ""
-echo "Available commands:"
-echo "  /prime          - Load project context"
-echo "  /plan-feature   - Create implementation plan"
-echo "  /execute        - Execute a plan"
-echo "  /create-rules   - Generate CLAUDE.md"
-echo "  /create-prd     - Generate PRD"
-echo "  /init-project   - Project setup"
-echo "  /commit         - Git commit workflow"
+echo "Available commands (namespaced under /piv/):"
+echo "  /piv/prime          - Load project context"
+echo "  /piv/plan-feature   - Create implementation plan"
+echo "  /piv/execute        - Execute a plan"
+echo "  /piv/create-rules   - Generate CLAUDE.md"
+echo "  /piv/create-prd     - Generate PRD"
+echo "  /piv/init-project   - Project setup"
+echo "  /piv/commit         - Git commit workflow"
 echo ""
 echo "Next steps:"
-echo "  1. Customize .claude/commands/init-project.md for your project"
-echo "  2. Run /create-rules to generate your CLAUDE.md"
-echo "  3. Run /prime to load project context"
+echo "  1. Customize .claude/commands/piv/init-project.md for your project"
+echo "  2. Run /piv/create-rules to generate your CLAUDE.md"
+echo "  3. Run /piv/prime to load project context"

@@ -6,19 +6,19 @@ Extracted from [coleam00/link-in-bio-page-builder](https://github.com/coleam00/l
 
 ## What It Does
 
-PIV provides structured AI-assisted development workflows via Claude Code commands and skills:
+PIV provides structured AI-assisted development workflows via Claude Code commands and skills. Commands are namespaced under `/piv/` to keep them separate from your project's own commands.
 
-### Commands (`.claude/commands/`)
+### Commands (`.claude/commands/piv/`)
 
 | Command | Description |
 |---------|-------------|
-| `/prime` | Load project context - analyzes structure, docs, key files |
-| `/plan-feature` | Create comprehensive implementation plan with codebase analysis |
-| `/execute` | Execute an implementation plan task-by-task with validation |
-| `/create-rules` | Generate `CLAUDE.md` project rules from codebase analysis |
-| `/create-prd` | Generate a Product Requirements Document |
-| `/init-project` | Project setup instructions (customize per project) |
-| `/commit` | Atomic git commit workflow |
+| `/piv/prime` | Load project context - analyzes structure, docs, key files |
+| `/piv/plan-feature` | Create comprehensive implementation plan with codebase analysis |
+| `/piv/execute` | Execute an implementation plan task-by-task with validation |
+| `/piv/create-rules` | Generate `CLAUDE.md` project rules from codebase analysis |
+| `/piv/create-prd` | Generate a Product Requirements Document |
+| `/piv/init-project` | Project setup instructions (customize per project) |
+| `/piv/commit` | Atomic git commit workflow |
 
 ### Skills (`.claude/skills/`)
 
@@ -41,13 +41,14 @@ PIV provides structured AI-assisted development workflows via Claude Code comman
 ./install.sh
 ```
 
-This copies the framework files into your project's `.claude/` directory.
+This copies the framework files into your project's `.claude/` directory under a `piv/` subfolder.
 
 ### Manual Install
 
 ```bash
-# Copy commands
-cp -r commands/* /path/to/project/.claude/commands/
+# Copy commands (into piv/ subfolder)
+mkdir -p /path/to/project/.claude/commands/piv
+cp -r commands/* /path/to/project/.claude/commands/piv/
 
 # Copy skills
 cp -r skills/* /path/to/project/.claude/skills/
@@ -63,10 +64,10 @@ If using [devtemplate](https://github.com/Steve-Klingele/devtemplate), run the i
 ## Workflow
 
 ```
-/prime                              # 1. Load project context
-/plan-feature "Add user auth"       # 2. Create implementation plan
-/execute .agents/plans/add-user-auth.md  # 3. Execute the plan
-/commit                             # 4. Commit changes
+/piv/prime                              # 1. Load project context
+/piv/plan-feature "Add user auth"       # 2. Create implementation plan
+/piv/execute .agents/plans/add-user-auth.md  # 3. Execute the plan
+/piv/commit                             # 4. Commit changes
 ```
 
 For E2E testing after implementation, the `e2e-test` skill launches parallel sub-agents for structure analysis, DB schema mapping, and bug hunting, then tests every user journey with browser automation.
